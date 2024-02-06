@@ -171,3 +171,7 @@ sphinx_*/
 
 # Rust analyzer configuration
 /rust-project.json
+
+# CM3588 custom extension board stuff
+/out-modules
+!/.config

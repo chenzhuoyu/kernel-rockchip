@@ -15,10 +15,6 @@
 
 	aliases {
 		ethernet0 = &r8125_u10;
-		nvme0 = &nvme0;
-		nvme1 = &nvme1;
-		nvme2 = &nvme2;
-		nvme3 = &nvme3;
 	};
 
 	/* If hdmirx node is disabled, delete the reserved-memory node here. */
@@ -451,43 +447,17 @@
 };
 
 &pcie2x1l0 {
-	/* 2. CON14: pcie30phy port0 lane1 */
-	max-link-speed = <3>;
-	num-lanes = <1>;
-	phys = <&pcie30phy>;
 	reset-gpios = <&gpio4 RK_PB4 GPIO_ACTIVE_HIGH>;
-	vpcie3v3-supply = <&vcc3v3_pcie30>;
+	rockchip,init-delay-ms = <500>;
+	vpcie3v3-supply = <&vcc_3v3_pcie20>;
 	status = "okay";
-
-	pcie@0,0 {
-		reg = <0x00200000 0 0 0 0>;
-		#address-cells = <3>;
-		#size-cells = <2>;
-
-		nvme1: pcie@20,0 {
-			reg = <0x000000 0 0 0 0>;
-		};
-	};
 };
 
 &pcie2x1l1 {
-	/* 4. CON16: pcie30phy port1 lane1 */
-	max-link-speed = <3>;
-	num-lanes = <1>;
-	phys = <&pcie30phy>;
 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
-	vpcie3v3-supply = <&vcc3v3_pcie30>;
+	rockchip,init-delay-ms = <500>;
+	vpcie3v3-supply = <&vcc_3v3_pcie20>;
 	status = "okay";
-
-	pcie@0,0 {
-		reg = <0x00300000 0 0 0 0>;
-		#address-cells = <3>;
-		#size-cells = <2>;
-
-		nvme3: pcie@30,0 {
-			reg = <0x000000 0 0 0 0>;
-		};
-	};
 };
 
 &pcie2x1l2 {
@@ -508,46 +478,15 @@
 };
 
 &pcie30phy {
-	rockchip,pcie30-phymode = <PHY_MODE_PCIE_NABIBI>;
+	rockchip,pcie30-phymode = <PHY_MODE_PCIE_AGGREGATION>;
 	status = "okay";
 };
 
 &pcie3x4 {
-	/* 1. CON13: pcie30phy port0 lane0 */
-	max-link-speed = <3>;
-	num-lanes = <1>;
 	reset-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
+	rockchip,init-delay-ms = <500>;
 	vpcie3v3-supply = <&vcc3v3_pcie30>;
 	status = "okay";
-
-	pcie@0,0 {
-		reg = <0x00000000 0 0 0 0>;
-		#address-cells = <3>;
-		#size-cells = <2>;
-
-		nvme0: pcie@0,0 {
-			reg = <0x000000 0 0 0 0>;
-		};
-	};
-};
-
-&pcie3x2 {
-	/* 3. CON15: pcie30phy port1 lane0 */
-	max-link-speed = <3>;
-	num-lanes = <1>;
-	reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
-	vpcie3v3-supply = <&vcc3v3_pcie30>;
-	status = "okay";
-
-	pcie@0,0 {
-		reg = <0x00100000 0 0 0 0>;
-		#address-cells = <3>;
-		#size-cells = <2>;
-
-		nvme2: pcie@10,0 {
-			reg = <0x000000 0 0 0 0>;
-		};
-	};
 };
 
 &pinctrl {
